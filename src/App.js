@@ -15,7 +15,6 @@ const lines = [
 function App() {
   const [squares, setSquares] = useState(defaultSquares());
   const [winner, setWinner] = useState(null);
-  var userWon = 0, pcWon = 0;
 
   useEffect(() => {
     const isComputerTurn = squares.filter(square => square !== null).length % 2 === 1;
@@ -34,11 +33,9 @@ function App() {
     const computerWon = linesThatAre('o','o','o').length > 0;
     if (playerWon) {
       setWinner('x');
-      userWon++;
     }
     if (computerWon) {
       setWinner('o');
-      pcWon++;
     }
     const putComputerAt = index => {
       let newSquares = squares;
@@ -73,8 +70,8 @@ function App() {
 
   function handleSquareClick(index) {
     const isPlayerTurn = squares.filter(square => square !== null).length % 2 === 0;
-    if (isPlayerTurn) {
-      let newSquares = squares;
+    let newSquares = squares;
+    if (isPlayerTurn && !!newSquares[index] === 'x' || newSquares[index] === null) {
       newSquares[index] = 'x';
       setSquares([...newSquares]);
     }
